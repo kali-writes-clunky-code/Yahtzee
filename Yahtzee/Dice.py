@@ -27,8 +27,13 @@ class Dice(object):
     self._load_image(value)
 
   def roll(self):
-    self._value = random.randint(1,7)
-    self._load_image(self._value)
+    self._value = random.randint(1,6)
+    self.set_image(self._value)
+    self.hold_radio_button.set_active(True)
+
+  def clear(self):
+    self._value = -1
+    self.roll_radio_button.set_active(True)
 
   @property
   def value(self): return self._value

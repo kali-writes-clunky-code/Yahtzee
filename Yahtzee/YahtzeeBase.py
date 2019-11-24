@@ -1,19 +1,6 @@
 import random
 
-class dice(object):
-
-    def __init__(self,tag):
-        self._value  = -1
-        self._tag    = tag
-            
-    def _roll(self):
-        self.value = random.randint(1,7)
-
-    @property
-    def value(self):
-        return self._value
-
-class roll(object):
+class Roll(object):
         
     def __init__(self,*args):
         self._values = args
