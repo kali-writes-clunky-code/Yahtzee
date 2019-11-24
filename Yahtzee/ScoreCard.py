@@ -6,9 +6,10 @@ from YahtzeeBase   import Roll
 class ScoreCard(object):
 
   def __init__(self,dice):
-    self.dice = dice
-
+    self.dice    = dice
     self.n_rolls = 0
+
+    self.roll_values  = dict()
 
     self.ones_value   = -1
     self.twos_value   = -1
@@ -82,29 +83,38 @@ class ScoreCard(object):
         pass
     return f
 
-  def play(self):
-    R = Roll(*self.get_dice_values())
-    roll_values['ones']            = R.ones()
-    roll_values['twos']            = R.twos()
-    roll_values['threes']          = R.threes()
-    roll_values['fours']           = R.fours()
-    roll_values['fives']           = R.fives()
-    roll_values['sixes']           = R.sixes()
-    roll_values['three_of_a_kind'] = R.threeOfAKind()
-    roll_values['four_of_a_kind']  = R.fourOfAKind()
-    roll_values['full_house']      = R.fullHouse()
-    roll_values['small_straight']  = R.shortStraight()
-    roll_values['large_straight']  = R.longStraight()
-    roll_values['yahtzee']         = R.yahtzee()
-    roll_values['chance']          = R.chance()
+  def _get(self,key):
+    return getattr(self,key+"_value")
+
+  def _update_label_hypo(self,label,key):
+    label.set_label("("+str(self.roll_values[key])+")")
+
+  def play(self,key):
+    pass
 
   def roll(self):
     self.n_rolls += 1
     self.roll_level_bar.set_value(self.n_rolls)
+    R = Roll(*self._dice_values())
+    self.roll_values['ones']            = R.ones()
+    self.roll_values['twos']            = R.twos()
+    self.roll_values['threes']          = R.threes()
+    self.roll_values['fours']           = R.fours()
+    self.roll_values['fives']           = R.fives()
+    self.roll_values['sixes']           = R.sixes()
+    self.roll_values['three_of_a_kind'] = R.threeOfAKind()
+    self.roll_values['four_of_a_kind']  = R.fourOfAKind()
+    self.roll_values['full_house']      = R.fullHouse()
+    self.roll_values['small_straight']  = R.shortStraight()
+    self.roll_values['large_straight']  = R.longStraight()
+    self.roll_values['yahtzee']         = R.yahtzee()
+    self.roll_values['chance']          = R.chance()
+    for key,item in self.roll_values.iteritems():
+      print key,item
 
   def clear(self):
     self.n_rolls = -1
     self.roll()
 
-  def get_dice_values(self):
+  def _dice_values(self):
     return [d.value for d in self.dice]

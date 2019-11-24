@@ -21,7 +21,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     self._dice = (self.dice1,
                   self.dice2,
-                  self.dice2,
+                  self.dice3,
                   self.dice4,
                   self.dice5)
 
@@ -52,6 +52,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
   def on_play_button_clicked(self,widget):
     self.score_card.clear()
+    self.score_card.play(*self.get_dice_values())
     self.dice1.clear()
     self.dice2.clear()
     self.dice3.clear()
@@ -117,4 +118,5 @@ class MainWindow(Gtk.ApplicationWindow):
   def attach_play_button(self,grid):
     grid.attach(self.play_button,4,12,1,1)
 
-
+  def get_dice_values(self):
+    return (dice.value for dice in self._dice)
