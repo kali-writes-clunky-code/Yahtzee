@@ -100,6 +100,10 @@ class MainWindow(Gtk.ApplicationWindow):
     grid.attach(self.score_card.fives_label, 1,9, 1,1)
     grid.attach(self.score_card.sixes_label, 1,10,1,1)
 
+    grid.attach(self.score_card.upper_subtotal_text,0,13,1,1)
+    grid.attach(self.score_card.bonus_text,         0,14,1,1)
+    grid.attach(self.score_card.upper_total_text,   0,15,1,1)
+
     grid.attach(self.score_card.upper_subtotal_label,1,13,1,1)
     grid.attach(self.score_card.bonus_label,         1,14,1,1)
     grid.attach(self.score_card.upper_total_label,   1,15,1,1)
@@ -119,6 +123,11 @@ class MainWindow(Gtk.ApplicationWindow):
     grid.attach(self.score_card.large_straight_label, 3,9, 1,1)
     grid.attach(self.score_card.yahtzee_label,        3,10,1,1)
     grid.attach(self.score_card.chance_label,         3,11,1,1)
+
+    grid.attach(self.score_card.lower_subtotal_text,2,13,1,1)
+    grid.attach(self.score_card.bonus_yahtzee_text, 2,14,1,1)
+    grid.attach(self.score_card.lower_total_text,   2,15,1,1)
+    grid.attach(self.score_card.total_text,         2,16,1,1)
 
     grid.attach(self.score_card.lower_subtotal_label,3,13,1,1)
     grid.attach(self.score_card.bonus_yahtzee_label, 3,14,1,1)

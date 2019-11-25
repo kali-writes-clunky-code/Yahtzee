@@ -4,8 +4,8 @@ from gi.repository import Gtk,Gio,GdkPixbuf
 
 class Dice(object):
   def __init__(self,initial_value=-1):
-    self._value = initial_value
-    self._image = Gtk.Image()
+    self.value = initial_value
+    self.image = Gtk.Image()
     self.set_image(initial_value)
     self.hold_radio_button = Gtk.RadioButton.new_with_label_from_widget(None,"Hold")
     self.roll_radio_button = Gtk.RadioButton.new_with_label_from_widget(self.hold_radio_button,"Roll")
@@ -19,21 +19,15 @@ class Dice(object):
 
   def set_image(self,value):
     if value > 0:
-      self._image.set_from_file("Images/dice%d.png"%value)
+      self.image.set_from_file("Images/dice%d.png"%value)
     else:
-      self._image.set_from_file("Images/rolling.gif")
+      self.image.set_from_file("Images/rolling.gif")
 
   def roll(self):
-    self._value = random.randint(1,6)
-    self.set_image(self._value)
+    self.value = random.randint(1,6)
+    self.set_image(self.value)
     self.hold_radio_button.set_active(True)
 
   def clear(self):
-    self._value = -1
+    self.value = -1
     self.roll_radio_button.set_active(True)
-
-  @property
-  def value(self): return self._value
-
-  @property
-  def image(self): return self._image
