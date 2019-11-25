@@ -28,7 +28,7 @@ class ScoreCard(object):
 
     self.upper_subtotal = 0
     self.lower_subtotal = 0
-    self.bonus          = -1
+    self.bonus          = 0
 
     self.ones_radio_button   = Gtk.RadioButton(group=None,                   label="Ones")
     self.twos_radio_button   = Gtk.RadioButton(group=self.ones_radio_button, label="Twos")
@@ -52,9 +52,9 @@ class ScoreCard(object):
     self.fives_label  = Gtk.Label(label="(0)")
     self.sixes_label  = Gtk.Label(label="(0)")
 
-    self.upper_subtotal_label = Gtk.Label(label="(0)")
-    self.bonus_label          = Gtk.Label(label="(0)")
-    self.upper_total_label    = Gtk.Label(label="(0)")
+    self.upper_subtotal_label = Gtk.Label(label="Subtotal (0)")
+    self.bonus_label          = Gtk.Label(label="Bonus (0)")
+    self.upper_total_label    = Gtk.Label(label="Upper Total (0)")
 
     self.three_of_a_kind_label = Gtk.Label(label="(0)")
     self.four_of_a_kind_label  = Gtk.Label(label="(0)")
@@ -64,8 +64,11 @@ class ScoreCard(object):
     self.yahtzee_label         = Gtk.Label(label="(0)")
     self.chance_label          = Gtk.Label(label="(0)")
 
-    self.lower_subtotal_label = Gtk.Label(label="(0)")
-    self.bonus_yahtzee_label  = Gtk.Label(label="(0)")
+    self.lower_subtotal_label = Gtk.Label(label="Subtotal (0)")
+    self.bonus_yahtzee_label  = Gtk.Label(label="Bonus Yahtzees (0)")
+    self.lower_total_label    = Gtk.Label(label="Lower Total (0)")
+    self.total_label          = Gtk.Label(label="Total (0)")
+
 
     self.roll_level_bar = Gtk.LevelBar(min_value=0,max_value=3)
 

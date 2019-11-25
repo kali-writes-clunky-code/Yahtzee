@@ -51,13 +51,14 @@ class MainWindow(Gtk.ApplicationWindow):
       self.score_card.roll()
 
   def on_play_button_clicked(self,widget):
-    self.score_card.clear()
-    self.dice1.clear()
-    self.dice2.clear()
-    self.dice3.clear()
-    self.dice4.clear()
-    self.dice5.clear()
-    self.score_card.play()
+    if any( [dice.value>0 for dice in self._dice] ):
+      self.score_card.clear()
+      self.dice1.clear()
+      self.dice2.clear()
+      self.dice3.clear()
+      self.dice4.clear()
+      self.dice5.clear()
+      self.score_card.play()
 
   def attach_roll_button(self,grid):
     grid.attach(self.roll_button,4,3,1,1)
@@ -99,7 +100,9 @@ class MainWindow(Gtk.ApplicationWindow):
     grid.attach(self.score_card.fives_label, 1,9, 1,1)
     grid.attach(self.score_card.sixes_label, 1,10,1,1)
 
-    grid.attach(self.score_card.upper_subtotal_label( 1,11,1,1)
+    grid.attach(self.score_card.upper_subtotal_label,1,13,1,1)
+    grid.attach(self.score_card.bonus_label,         1,14,1,1)
+    grid.attach(self.score_card.upper_total_label,   1,15,1,1)
 
     grid.attach(self.score_card.three_of_a_kind_radio_button,2,5, 1,1)
     grid.attach(self.score_card.four_of_a_kind_radio_button, 2,6, 1,1)
@@ -117,8 +120,13 @@ class MainWindow(Gtk.ApplicationWindow):
     grid.attach(self.score_card.yahtzee_label,        3,10,1,1)
     grid.attach(self.score_card.chance_label,         3,11,1,1)
 
+    grid.attach(self.score_card.lower_subtotal_label,3,13,1,1)
+    grid.attach(self.score_card.bonus_yahtzee_label, 3,14,1,1)
+    grid.attach(self.score_card.lower_total_label,   3,15,1,1)
+    grid.attach(self.score_card.total_label,         3,16,1,1)
+
   def attach_play_button(self,grid):
-    grid.attach(self.play_button,4,12,1,1)
+    grid.attach(self.play_button,4,17,1,1)
 
   def get_dice_values(self):
     return (dice.value for dice in self._dice)
