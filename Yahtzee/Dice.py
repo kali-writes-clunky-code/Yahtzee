@@ -6,7 +6,7 @@ class Dice(object):
   def __init__(self,initial_value=-1):
     self._value = initial_value
     self._image = Gtk.Image()
-    self._load_image(initial_value)
+    self.set_image(initial_value)
     self.hold_radio_button = Gtk.RadioButton.new_with_label_from_widget(None,"Hold")
     self.roll_radio_button = Gtk.RadioButton.new_with_label_from_widget(self.hold_radio_button,"Roll")
     self.hold_radio_button.connect("toggled",self.on_hold_radio_button_toggled)
@@ -17,14 +17,11 @@ class Dice(object):
     else:
       self.set_image(0)
 
-  def _load_image(self,value):
+  def set_image(self,value):
     if value > 0:
       self._image.set_from_file("Images/dice%d.png"%value)
     else:
       self._image.set_from_file("Images/rolling.gif")
-
-  def set_image(self,value):
-    self._load_image(value)
 
   def roll(self):
     self._value = random.randint(1,6)

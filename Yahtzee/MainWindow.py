@@ -43,21 +43,21 @@ class MainWindow(Gtk.ApplicationWindow):
 
   def on_roll_button_clicked(self,widget):
     if self.score_card.n_rolls < 3 and any([dice.roll_radio_button.get_active() for dice in self._dice]): 
-      self.score_card.roll()
       if self.dice1.roll_radio_button.get_active() or self.dice1.value<1: self.dice1.roll()
       if self.dice2.roll_radio_button.get_active() or self.dice2.value<1: self.dice2.roll()
       if self.dice3.roll_radio_button.get_active() or self.dice3.value<1: self.dice3.roll()
       if self.dice4.roll_radio_button.get_active() or self.dice4.value<1: self.dice4.roll()
       if self.dice5.roll_radio_button.get_active() or self.dice5.value<1: self.dice5.roll()
+      self.score_card.roll()
 
   def on_play_button_clicked(self,widget):
     self.score_card.clear()
-    self.score_card.play(*self.get_dice_values())
     self.dice1.clear()
     self.dice2.clear()
     self.dice3.clear()
     self.dice4.clear()
     self.dice5.clear()
+    self.score_card.play()
 
   def attach_roll_button(self,grid):
     grid.attach(self.roll_button,4,3,1,1)
@@ -98,6 +98,8 @@ class MainWindow(Gtk.ApplicationWindow):
     grid.attach(self.score_card.fours_label, 1,8, 1,1)
     grid.attach(self.score_card.fives_label, 1,9, 1,1)
     grid.attach(self.score_card.sixes_label, 1,10,1,1)
+
+    grid.attach(self.score_card.upper_subtotal_label( 1,11,1,1)
 
     grid.attach(self.score_card.three_of_a_kind_radio_button,2,5, 1,1)
     grid.attach(self.score_card.four_of_a_kind_radio_button, 2,6, 1,1)

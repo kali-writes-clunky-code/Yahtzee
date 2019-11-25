@@ -6,16 +6,17 @@ from YahtzeeBase   import Roll
 class ScoreCard(object):
 
   def __init__(self,dice):
-    self.dice    = dice
-    self.n_rolls = 0
-
-    self.roll_values  = dict()
+    self.dice             = dice
+    self.n_rolls          = 0
+    self.n_bonus_yahtzees = -1
+    self.roll_values      = dict()
 
     self.ones_value   = -1
     self.twos_value   = -1
     self.threes_value = -1
     self.fours_value  = -1
     self.fives_value  = -1
+    self.sixes_value  = -1
 
     self.three_of_a_kind_value  = -1
     self.four_of_a_kind_value   = -1
@@ -24,6 +25,10 @@ class ScoreCard(object):
     self.large_straight_value   = -1
     self.yahtzee_value          = -1
     self.chance_value           = -1
+
+    self.upper_subtotal = 0
+    self.lower_subtotal = 0
+    self.bonus          = -1
 
     self.ones_radio_button   = Gtk.RadioButton(group=None,                   label="Ones")
     self.twos_radio_button   = Gtk.RadioButton(group=self.ones_radio_button, label="Twos")
@@ -47,6 +52,10 @@ class ScoreCard(object):
     self.fives_label  = Gtk.Label(label="(0)")
     self.sixes_label  = Gtk.Label(label="(0)")
 
+    self.upper_subtotal_label = Gtk.Label(label="(0)")
+    self.bonus_label          = Gtk.Label(label="(0)")
+    self.upper_total_label    = Gtk.Label(label="(0)")
+
     self.three_of_a_kind_label = Gtk.Label(label="(0)")
     self.four_of_a_kind_label  = Gtk.Label(label="(0)")
     self.full_house_label      = Gtk.Label(label="(0)")
@@ -55,7 +64,10 @@ class ScoreCard(object):
     self.yahtzee_label         = Gtk.Label(label="(0)")
     self.chance_label          = Gtk.Label(label="(0)")
 
-    self.roll_level_bar = Gtk.LevelBar.new_for_interval(0,3)
+    self.lower_subtotal_label = Gtk.Label(label="(0)")
+    self.bonus_yahtzee_label  = Gtk.Label(label="(0)")
+
+    self.roll_level_bar = Gtk.LevelBar(min_value=0,max_value=3)
 
     self.connect_radio_button(self.ones_radio_button,  'ones')
     self.connect_radio_button(self.twos_radio_button,  'twos')
@@ -83,14 +95,21 @@ class ScoreCard(object):
         pass
     return f
 
+  def _set(self,key,value):
+    setattr(self,key+"_value",value)
+
   def _get(self,key):
     return getattr(self,key+"_value")
+
+  def _get_label(self,key):
+    return getattr(self,key+"_label")
 
   def _update_label_hypo(self,label,key):
     label.set_label("("+str(self.roll_values[key])+")")
 
-  def play(self,key):
-    pass
+  def play(self):
+    self._set(self.key,self.roll_values[self.key])  
+    self._get_label(self.key).set_label(str(self._get(self.key)))
 
   def roll(self):
     self.n_rolls += 1
@@ -110,7 +129,7 @@ class ScoreCard(object):
     self.roll_values['yahtzee']         = R.yahtzee()
     self.roll_values['chance']          = R.chance()
     for key,item in self.roll_values.iteritems():
-      print key,item
+      if self._get(key) < 0: self._update_label_hypo(self._get_label(key),key)
 
   def clear(self):
     self.n_rolls = -1
