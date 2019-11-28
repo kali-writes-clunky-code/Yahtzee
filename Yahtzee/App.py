@@ -40,7 +40,7 @@ class YahtzeeApp(Gtk.Application):
     artists     = ("Empress Kali",)
     logo        = GdkPixbuf.Pixbuf.new_from_file("Images/creep_with_dice.png")
     aboutdialog.set_program_name("Yahtzee")
-    aboutdialog.set_version("0.1")
+    aboutdialog.set_version("1.0")
     aboutdialog.set_copyright("kx (c) 2019")
     aboutdialog.set_comments("Yahtzee Game for Elli and Kali")
     aboutdialog.set_authors(authors)
