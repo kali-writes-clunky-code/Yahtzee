@@ -3,8 +3,6 @@ gi.require_version("Gtk","3.0")
 from gi.repository  import Gtk,Gio,GdkPixbuf
 from MainWindow     import MainWindow
 
-_test = True
-
 class YahtzeeApp(Gtk.Application):
 
   def __init__(self):
@@ -32,7 +30,7 @@ class YahtzeeApp(Gtk.Application):
     
     about_action = Gio.SimpleAction.new("about",None)
     about_action.connect("activate",self.on_about_dialog)
-    app.add_action(about_action)
+    self.add_action(about_action)
 
   def on_about_dialog(self, action, parameter):
     aboutdialog = Gtk.AboutDialog()
@@ -53,8 +51,3 @@ class YahtzeeApp(Gtk.Application):
 
   def on_close_about_dialog(self, action, parameter):
     action.destroy()
-
-if _test:
-  app = YahtzeeApp()
-  exit_status = app.run(sys.argv)
-  sys.exit(exit_status)
